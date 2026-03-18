@@ -1,0 +1,10 @@
+[project]
+name = "Blazer"
+version = "0.1.0"
+description = "A way to track anything productivity and keep you coming back for more"
+authors = [{name = "Alex G"}]
+requires-python = ">=3"
+dependencies = ["pygame"]
+
+[project.scripts]
+blzr = "blazer:main"
