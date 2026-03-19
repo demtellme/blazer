@@ -11,7 +11,6 @@ pygame.init()
 screen = pygame.display.set_mode((640, 640))
 pygame.display.set_caption("Blazer")
 clock = pygame.time.Clock()
-running = True
 
 with open(CONF, "r") as f:
     config = json.load(f)
@@ -39,25 +38,25 @@ def text(font,text,colour):
 
 # def configureconfig():
 #     pass
+def main():
+    running = True
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
-    screen.fill(BG)
+        screen.fill(BG)
 
-    screen.blit(text(FONT, "Blazer", DARK), (50,25))
+        screen.blit(text(FONT, "Blazer", DARK), (50,25))
 
-    square(50, 100, 20, 20, DARK, 5)
-    square(80, 100, 20, 20, MID, 5)
-    square(110, 100, 20, 20, LIGHT, 5)
-
-    button = square(275, 500, 100,50, DARK,5)
+        square(50, 100, 20, 20, DARK, 5)
+        square(80, 100, 20, 20, MID, 5)
+        square(110, 100, 20, 20, LIGHT, 5)
 
 
-    mousepos = pygame.mouse.get_pos()
-    pygame.display.flip()
-    clock.tick(60)
 
-pygame.quit()
+        pygame.display.flip()
+        clock.tick(60)
+
+    pygame.quit()
