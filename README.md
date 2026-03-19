@@ -1,7 +1,7 @@
 ## Blazer
 
 A gui to track progress on anything - such as revision
-Designed to guilt trip you and keep you addicted to keeping up your productivity steak
+Designed to guilt trip you and keep you addicted to keeping up your productivity steak, with full customisibility
 
 ## Install
 ```bash
@@ -19,7 +19,5 @@ pipx uninstall Blazer
 
 ## Usage
 ```bash
-blzr <command>
+blzr # runs the program
 ```
-
-## Commands

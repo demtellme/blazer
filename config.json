@@ -1,0 +1,38 @@
+{
+  "USER": {
+    "colourscheme": "dracula",
+    "background": "dark23",
+    "font": "jetbrains",
+    "fontsize" : 40
+  },
+  "colourschemes": {
+    "red":     [[100,50,50],  [255,100,50],  [255,150,150]],
+    "green":   [[50,100,50],  [0,255,0],     [150,255,150]],
+    "blue":    [[50,50,100],  [0,0,255],     [150,150,255]],
+    "dracula": [[68,71,90],   [189,147,249], [255,121,198]],
+    "nord":    [[46,52,64],   [136,192,208], [163,190,140]],
+    "sunset":  [[100,50,30],  [255,160,50],  [255,220,150]],
+    "ocean":   [[20,40,80],   [0,180,220],   [150,230,255]],
+    "rose":    [[80,40,60],   [220,80,120],  [255,180,200]],
+    "mono":    [[40,40,40],   [180,180,180], [255,255,255]],
+    "catppuccin-mocha":  [[30,30,46],   [203,166,247], [245,194,231]],
+    "catppuccin-macchiato": [[24,25,38], [198,160,246], [244,189,227]],
+    "catppuccin-frappe": [[48,52,70],   [202,158,230], [244,184,228]],
+    "catppuccin-latte":  [[239,241,245],[136,57,239],  [234,118,203]]
+  },
+  "background": {
+    "dark23":  [23,23,23],
+    "oled":    [0,0,0],
+    "dark35":  [35,35,35],
+    "darkblue":[15,20,40],
+    "darkrose":[40,20,30]
+  },
+  "font": {
+    "hack":        "hack",
+    "jetbrains":   "jetbrainsmononerdfont",
+    "notosans":    "notosans",
+    "notoserif":   "notoserif",
+    "liberation":  "liberationsans",
+    "mono":        "liberationmono"
+  }
+}
