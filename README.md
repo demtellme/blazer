@@ -8,10 +8,10 @@ version there will be compatibility updates for mac and windows
 ## Install
 ```bash
 # Recommended
-pipx install git+https://github.com/demtellme/Blazer.git
+pipx install git+https://github.com/starcrossd/blazer.git
 
 # Or with pip
-pip install --user git+https://github.com/demtellme/Blazer.git
+pip install --user git+https://github.com/starcrossd/blazer.git
 ```
 
 ## Uninstall
