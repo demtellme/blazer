@@ -7,7 +7,8 @@ import tkinter as tk
 from tkinter import filedialog
 
 CONF = os.path.join(os.path.dirname(__file__), 'config.json')
-CCOMMITS = os.path.join(os.path.dirname(__file__), '.commits.txt')
+COMMITSFOLDER = os.path.join(os.path.dirname(__file__), '.commits')
+COMMITSJSON = os.path.join(os.path.dirname(__file__), '.commits.json')
 
 HEIGHT = 640
 WIDTH = 640
@@ -54,6 +55,34 @@ daysincurrentmonth = int(calendar.monthrange(int(year),int(month))[1])
 tkroot = tk.Tk()
 tkroot.withdraw()
 
+class Commit:
+    def __init__(self, message, files, timestamp, directory):
+        self.message = message
+        self.files = files
+        self.timestamp = timestamp
+        self.directory = directory
+
+    def makedictionary(self):
+        return {
+            'message': self.message,
+            'files': self.files,
+            'timestamp': self.timestamp
+        }
+
+    def savecommit(self):
+        with open(COMMITSJSON, 'r') as f:
+                    commits = json.load(f)
+        commits.append(self.makedictionary())
+        with open(COMMITSJSON, 'w') as f:
+            json.dump(commits, f, indent=2)
+
+def setup():
+    if not os.path.exists(COMMITSJSON):
+        with open(COMMITSJSON, 'w') as f:
+            json.dump([], f)
+    if not os.path.exists(COMMITSFOLDER):
+        os.mkdir(COMMITSFOLDER)
+
 def square(x, y, width, height, colour, border_radius):
     pygame.draw.rect(screen, colour, (x, y, width, height), border_radius=border_radius)
 
@@ -76,9 +105,10 @@ def displaypastdays(days):
 
 
 def loadcommits():
-    commits = open(CONF, 'r').readlines()
+    with open(COMMITSJSON) as f:
+        pass
 
-def makenewcommit():
+def addfile():
     filepath = filedialog.askopenfilename(
         parent=tkroot,
         title="Open File",
@@ -89,11 +119,11 @@ def makenewcommit():
 
 def dipslayhomescreen():
     screen.blit(text(BIGFONT, "Blazer", MID), (50, 20))
-    square(50, 100, 20, 20, DARKEST, 5)
-    square(80, 100, 20, 20, DARK, 5)
-    square(110, 100, 20, 20, MID, 5)
-    square(140, 100, 20, 20, LIGHT, 5)
-    square(170, 100, 20, 20, LIGHTEST, 5)
+    square(50, 90, 20, 20, DARKEST, 5)
+    square(80, 90, 20, 20, DARK, 5)
+    square(110, 90, 20, 20, MID, 5)
+    square(140, 90, 20, 20, LIGHT, 5)
+    square(170, 90, 20, 20, LIGHTEST, 5)
 
     screen.blit(text(SMALLFONT, year, MID), (500,30))
     screen.blit(text(SMALLFONT, f"{day}-{month}", MID), (500,55))
@@ -105,7 +135,7 @@ def dipslayhomescreen():
 
     displaypastdays(daysincurrentmonth)
 
-def displaycommitscreen():
+def displaycommitscreen(files):
     square(40, 30, 200, 40, BGSECONDARY, 5)
     square(40, 90, 560, 120, BGSECONDARY, 5)
     screen.blit(text(FONT, "Message:", MID), (50, 27))
@@ -117,26 +147,58 @@ def displaycommitscreen():
     square(232, 500, 175, 45, DARK, 5)
     screen.blit(text(FONT, "COMMIT", MID), (240, 500))
 
+    if len(files) > 0:
+        for file in files:
+            index = files.index(file)
+            ycord = 300 + index * 20
+            screen.blit(text(SMALLFONT, file, MID), (50,ycord))
 
 
 def main():
+    setup()
     running = True
     state = 'home'
+    files = []
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if state == 'home' and pygame.Rect(50, 550, 200, 50).collidepoint(event.pos):
-                    state = 'commitscreen'
+            if state == 'home':
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if pygame.Rect(50, 550, 200, 50).collidepoint(event.pos):
+                        state = 'commitscreen'
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    state='commitscreen'
+
+            if state == 'commitscreen':
+                if event.type == pygame.DROPFILE:
+                    files.append(addfile())
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if pygame.Rect(232,500,175,45).collidepoint(event.pos):
+                        print('commited')
+                        state = 'home'
+                        files = []
+                    elif pygame.Rect(40, 290, 560, 120).collidepoint(event.pos):
+                        files.append(addfile())
+                    elif pygame.Rect(40, 90, 560, 120).collidepoint(event.pos):
+                        pass
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_f:
+                        files.append(addfile())
+
+                    if event.key == pygame.K_j:
+                        pass
 
         screen.fill(BGPRIMARY)
 
         if state == 'home':
             dipslayhomescreen()
         elif state == 'commitscreen':
-            displaycommitscreen()
+            displaycommitscreen(files)
 
         pygame.display.flip()
         clock.tick(60)

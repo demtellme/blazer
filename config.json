@@ -1,8 +1,8 @@
 {
   "USER": {
-    "colourscheme": "uniform",
+    "colourscheme": "ocean",
     "background": "dark23",
-    "font": "adwaita",
+    "font": "mono",
     "fontsize": 40
   },
   "colourschemes": {

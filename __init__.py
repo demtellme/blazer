@@ -1,2 +1,0 @@
-import os
-open(os.path.join(os.path.dirname(__file__), '.commits.txt')).close()
